@@ -1,7 +1,7 @@
 # gitAutoPublisher
 :ice_cube: A tool to publish git repo.
 # Usage
-Put the "autoPublisher.bat" file in your git repo root direction.
+Put the "autoPublisher.bat" file in your git repo's root directory.
 Run it.
 # Feature
 1. It can create schtask to run itself.
