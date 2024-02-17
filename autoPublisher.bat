@@ -1,7 +1,7 @@
 @echo off
 :: Basic settings
 set schtaskName=autoPublisherTimer
-set ver=autoPublisher v2.4.2
+set ver=autoPublisher v2.4.3
 title %ver% running...
 echo Welcome to use %ver%
 :: Go to target direction
