@@ -2,6 +2,7 @@
 :: Basic settings
 set schtaskName=autoPublisherTimer
 set ver=autoPublisher v2.4.2
+title %ver% running...
 echo Welcome to use %ver%
 :: Go to target direction
 cd /d %~dp0
@@ -38,10 +39,12 @@ schtasks /create /tn %schtaskName% /sc DAILY /st %t%:00 /tr %0 2>nul>nul
 choice /c YN /t 10 /d Y /n /m "Please confirm whether to push, yes Y, no N"
 if %errorlevel%==2 goto exit
 :: Initialization
+title %ver% initializing...
 echo Initializing...
 timeout /t 5 /nobreak 2>nul>nul
 echo Initialization complete, starting push process...
 :: Push
+title %ver% pushing...
 echo Adding all changes...
 git add .
 echo Commiting all changes...
@@ -50,9 +53,11 @@ echo Merging all remote changes to local...
 git pull 2>nul>nul 
 echo Pushing all local changes to ::ote...
 git push 2>nul>nul
-echo Push process ended
+echo Push process has ended
+title %ver% push completed!
 :exit
 :: Program end
+title %ver% process has ened
 echo Thank you for using %ver%
 echo Please press any key to continue
 pause 2>nul>nul
