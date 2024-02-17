@@ -59,6 +59,6 @@ title %ver% push completed!
 :: Program end
 title %ver% process has ened
 echo Thank you for using %ver%
-echo Please press any key to continue
+echo Please press any key to continue...
 pause 2>nul>nul
 cls
