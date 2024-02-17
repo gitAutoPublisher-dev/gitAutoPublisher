@@ -7,7 +7,7 @@ set schtaskName=autoPublisherTimer
 set ver=autoPublisher v2.4.5
 title %ver% running...
 echo Welcome to use %ver%
-:: Go to target direction
+:: Go to target directory
 cd /d %~dp0
 :: Read register config
 echo .>%tempFile%
@@ -65,7 +65,7 @@ if %errorlevel%==0 (
 )
 :: Git status check
 :gsc
-git status 2>nul>nul
+git.exe status 2>nul>nul
 if %errorlevel%==0 (
     echo Current repository status: Normal
     goto task
@@ -107,13 +107,13 @@ echo Initialization complete, starting push process...
 :: Push
 title %ver% pushing...
 echo Adding all changes...
-git add .
+git.exe add .
 echo Committing all changes...
-git commit -m "Push by autoPublisher: %date:~0,10%,%time:~0,8%" 2>nul>nul
+git.exe commit -m "Push by autoPublisher: %date:~0,10%,%time:~0,8%" 2>nul>nul
 echo Merging all remote changes to local...
-git pull 2>nul>nul 
+git.exe pull 2>nul>nul 
 echo Pushing all local changes to remote...
-git push 2>nul>nul
+git.exe push 2>nul>nul
 echo Push process has ended
 title %ver% push completed!
 :: Save register config
