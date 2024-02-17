@@ -116,8 +116,8 @@ git push 2>nul>nul
 echo Push process has ended
 title %ver% push completed!
 :: Save register config
-reg add HKCU\Software\autoPublisher /v routerIP /t REG_SZ /d routerIP /f
-reg add HKCU\Software\autoPublisher /v schTask /t REG_DWORD /d 1 /f
+reg add HKCU\Software\autoPublisher /v routerIP /t REG_SZ /d %routerIP% /f 2>nul>nul
+reg add HKCU\Software\autoPublisher /v schTask /t REG_DWORD /d 1 /f 2>nul>nul
 :exit
 :: Program end
 title %ver% process has ened
