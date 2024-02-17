@@ -1,12 +1,48 @@
 @echo off
 :: Basic settings
+set localhost=127.0.0.1
+set gitIP=github.com
 set schtaskName=autoPublisherTimer
-set ver=autoPublisher v2.4.3
+set ver=autoPublisher v2.4.4
 title %ver% running...
 echo Welcome to use %ver%
 :: Go to target direction
 cd /d %~dp0
+:: Network status check
+echo Checking network status....
+:: Network local status check
+ping %localhost% -n 1 2>nul>nul
+if %errorlevel%==0 (
+	echo Current network status [Local]: Normal
+) else (
+	echo Current network status [Local]: Abnormal
+	echo Error: The computer does not have the network function enabled / %ver% does not have the ability to access the network
+	echo And the push process is refused
+	goto exit
+)
+:: Network router status check
+set /p routerIP=Please enter your router IP address(default: 192.168.0.1):
+if not defined routerIP set routerIP=192.168.0.1
+ping %routerIP% -n 1 2>nul>nul
+if %errorlevel%==0 (
+	echo Current network status [Router]: Normal
+) else (
+	echo Current network status [Router]: Abnormal
+	echo Error: %ver% can not access network and the push process is refused
+	goto exit
+)
+:: Network github status check
+ping %gitIP% -n 1 2>nul>nul
+if %errorlevel%==0 (
+	echo Current network status [Github]: Normal
+	goto gsc
+) else (
+	echo Current network status [Github]: Abnormal
+	echo Error: %ver% can not access github and the push process is refused
+	goto exit
+)
 :: Git status check
+:gsc
 git status 2>nul>nul
 if %errorlevel%==0 (
 	echo Current repository status: Normal
@@ -30,8 +66,7 @@ if %errorlevel%==0 (
 :schtask
 choice /c YN /t 10 /d Y /n /m "Please confirm whether to create scheduled task, yes Y, no N"
 if %errorlevel%==2 goto choose
-echo Please enter your expected scheduled task execution time per day(24 hours):
-set /p t=
+set /p t=Please enter your expected scheduled task execution time per day(24 hours)(default: 18):
 if not defined t set t=18
 schtasks /create /tn %schtaskName% /sc DAILY /st %t%:00 /tr %0 2>nul>nul
 :: Push confirm
