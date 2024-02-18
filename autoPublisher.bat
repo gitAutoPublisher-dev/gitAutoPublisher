@@ -4,25 +4,40 @@ set tempFile=%temp%\regTemp.txt
 set localhost=127.0.0.1
 set gitIP=github.com
 set schtaskName=autoPublisherTimer
-set ver=autoPublisher v2.4.5
+set ver=autoPublisher v2.4.6
 title %ver% running...
 echo Welcome to use %ver%
 :: Go to target directory
 cd /d %~dp0
 :: Read register config
+echo Reading register config...
 echo .>%tempFile%
-reg query HKCU\Software\autoPublisher /v routerIP > %tempFile% 2>nul
+reg query HKCU\Software\autoPublisher /v routerIP > %tempFile% 2>nul>nul
 if %errorlevel%==0 (
     for /f "tokens=3" %%i in (%tempFile%) do set routerIP=%%i
     set noRIP=0
 ) else (
     set noRIP=1
+    set n1=1
 )
-reg query HKCU\Software\autoPublisher /v schTask > %tempFile% 2>nul
+echo .>%tempFile%
+reg query HKCU\Software\autoPublisher /v schTask > %tempFile% 2>nul>nul
 if %errorlevel%==0 (
     set noTask=1
 ) else (
     set noTask=0
+    set n2=1
+)
+:: Register config check
+if defined n1 (
+    echo Register config [routerIP]: Not found
+) else (
+    echo Register config [routerIP]: %routerIP%
+)
+if defined n2 (
+    echo Register config [schTask]: Not found
+) else (
+    echo Register config [schTask]: Found
 )
 :: Network status check
 echo Checking network status....
@@ -65,7 +80,9 @@ if %errorlevel%==0 (
 )
 :: Git status check
 :gsc
-git.exe status 2>nul>nul
+REM Add missing import statement for git command
+set PATH=%PATH%;C:\Program Files\Git\cmd
+git status 2>nul>nul
 if %errorlevel%==0 (
     echo Current repository status: Normal
     goto task
@@ -107,13 +124,13 @@ echo Initialization complete, starting push process...
 :: Push
 title %ver% pushing...
 echo Adding all changes...
-git.exe add .
+git add .
 echo Committing all changes...
-git.exe commit -m "Push by autoPublisher: %date:~0,10%,%time:~0,8%" 2>nul>nul
+git commit -m "Push by autoPublisher: %date:~0,10%,%time:~0,8%" 2>nul>nul
 echo Merging all remote changes to local...
-git.exe pull 2>nul>nul 
+git pull 2>nul>nul 
 echo Pushing all local changes to remote...
-git.exe push 2>nul>nul
+git push 2>nul>nul
 echo Push process has ended
 title %ver% push completed!
 :: Save register config
@@ -123,6 +140,7 @@ reg add HKCU\Software\autoPublisher /v schTask /t REG_DWORD /d 1 /f 2>nul>nul
 :: Program end
 title %ver% process has ended
 echo Thank you for using %ver%
+del "%tempFile%" /q 2>nul>nul
 echo Please press any key to continue...
 pause 2>nul>nul
 cls
