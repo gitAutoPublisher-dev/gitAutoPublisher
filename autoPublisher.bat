@@ -24,11 +24,14 @@ if %errorlevel%==0 (
     set noTask=0
 )
 :: Register config check
+echo Checking register config....
+:: Register routerIP check
 if %noRIP%==1 (
     echo Register config [routerIP]: Not found
 ) else (
     echo Register config [routerIP]: %routerIP%
 )
+:: Register schTask check
 if %noTask%==0 (
     echo Register config [schTask]: Not found
 ) else (
