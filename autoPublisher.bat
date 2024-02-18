@@ -1,40 +1,35 @@
 @echo off
 :: Basic settings
 set tempFile=%temp%\regTemp.txt
-set localhost=127.0.0.1
 set gitIP=github.com
 set schtaskName=autoPublisherTimer
 set ver=autoPublisher v2.4.6
 title %ver% running...
 echo Welcome to use %ver%
-:: Go to target directory
+:: Go to target direction
 cd /d %~dp0
 :: Read register config
-echo Reading register config...
 echo .>%tempFile%
-reg query HKCU\Software\autoPublisher /v routerIP > %tempFile% 2>nul>nul
+reg query HKCU\Software\autoPublisher /v routerIP > %tempFile% 2>nul
 if %errorlevel%==0 (
     for /f "tokens=3" %%i in (%tempFile%) do set routerIP=%%i
     set noRIP=0
 ) else (
     set noRIP=1
-    set n1=1
 )
-echo .>%tempFile%
-reg query HKCU\Software\autoPublisher /v schTask > %tempFile% 2>nul>nul
+reg query HKCU\Software\autoPublisher /v schTask > %tempFile% 2>nul
 if %errorlevel%==0 (
     set noTask=1
 ) else (
     set noTask=0
-    set n2=1
 )
 :: Register config check
-if defined n1 (
+if %noRIP%==1 (
     echo Register config [routerIP]: Not found
 ) else (
     echo Register config [routerIP]: %routerIP%
 )
-if defined n2 (
+if %noTask%==0 (
     echo Register config [schTask]: Not found
 ) else (
     echo Register config [schTask]: Found
@@ -42,7 +37,7 @@ if defined n2 (
 :: Network status check
 echo Checking network status....
 :: Network local status check
-ping %localhost% -n 1 2>nul>nul
+ping localhost -n 1 2>nul>nul
 if %errorlevel%==0 (
     echo Current network status [Local]: Normal
 ) else (
@@ -80,8 +75,6 @@ if %errorlevel%==0 (
 )
 :: Git status check
 :gsc
-REM Add missing import statement for git command
-set PATH=%PATH%;C:\Program Files\Git\cmd
 git status 2>nul>nul
 if %errorlevel%==0 (
     echo Current repository status: Normal
@@ -140,7 +133,7 @@ reg add HKCU\Software\autoPublisher /v schTask /t REG_DWORD /d 1 /f 2>nul>nul
 :: Program end
 title %ver% process has ended
 echo Thank you for using %ver%
-del "%tempFile%" /q 2>nul>nul
+del %tempFile% /q 2>nul>nul
 echo Please press any key to continue...
 pause 2>nul>nul
 cls
