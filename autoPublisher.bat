@@ -1,9 +1,14 @@
 @echo off
+:: Echo version
+set ver=autoPublisher v2.4.7
+if "%1"=="-v" (
+    echo %ver%
+    exit /b 0
+)
 :: Basic settings
 set tempFile=%temp%\regTemp.txt
 set gitIP=github.com
 set schtaskName=autoPublisherTimer
-set ver=autoPublisher v2.4.6
 title %ver% running...
 echo Welcome to use %ver%
 :: Go to target direction

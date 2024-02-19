@@ -1,0 +1,62 @@
+name: "🐛 Bug report"
+description: Report an issue with gitAutoPublisher
+title: '🐛 
+labels: ["bug: pending triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        非常感谢你的 issue report (๑>؂<๑），为了使我们能够更快地定位错误来源，请尽可能完整地填写本 Issue 表格
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: 问题简述
+      description: 详述你所遇到的问题（如有报错也请粘贴在这里）～
+      placeholder: |
+        如果方便，请在 autoPublisher.bat 中删除所有的"2>nul>nul", "2>nul" 及 "@echo off"以提供更加详细的报错信息
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤
+      description: 请详细描述如何复现这个问题
+      placeholder: |
+        请在这里提供你所使用 gitAutoPublisher 的方式。为了节省彼此交流的时间，
+        麻烦在提交 issue 前多次测试该命令是能够反复复现的（非网络问题），
+        如果可以，麻烦在提交 issue 前对其他的情况进行测试，并将相关信息详细描述在问题简述中。
+      validation:
+        required: true
+  - type: textarea
+    id: environment-info
+    attributes:
+      label: 环境信息
+      description: 请尽可能详细地供以下信息～
+      placeholder: 你的环境信息～
+      value: |
+        -  OS: 操作系统类型及其版本号
+        -  gitAutoPublisher: gitAutoPublisher 版本号 (`.\autoPublisher.bat -v`)
+        -  如果是显示相关问题
+            -  Shell: Shell 类型 (`echo $SHELL`)
+            -  Terminal: 终端类型
+        -  Others: 其它信息
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 额外信息
+      description: 请尽可能提供一些你认为可能产生该问题的一些原因
+      placeholder: 如有额外的信息，请填写在这里～
+    validations:
+      required: false
+  - type: checkboxes
+    id: checkboxes
+    attributes:
+      label: 一点点的自我检查
+      description: 在你提交 issue 之前，麻烦确认自己是否已经完成了以下检查：
+      options:
+        - label: 如果是网络问题，已经检查网络连接、设置是否正常，并经过充分测试认为这是 gitAutoPublisher 本身的问题
+          required: true
+        - label: 本 issue 在 [issues](https://github.com/gitAutoPublisher-dev/gitAutoPublisher/issues) 和 [discussion](https://github.com/gitAutoPublisher-dev/gitAutoPublisher/discussions) 中并没有重复问题
+          required: true
