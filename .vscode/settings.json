@@ -1,8 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://json.schemastore.org/github-issue-config.json": [
-            "file:///e%3A/GithubProjects/gitAutoPublisher/.github/ISSUE_TEMPLATE/config.yml"
-        ],
-        "https://json.schemastore.org/github-issue-forms.json": "file:///e%3A/GithubProjects/gitAutoPublisher/.github/ISSUE_TEMPLATE/bug_report.yml"
-    }
-}
