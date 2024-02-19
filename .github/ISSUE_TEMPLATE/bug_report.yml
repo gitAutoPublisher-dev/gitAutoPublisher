@@ -1,6 +1,6 @@
 name: "🐛 Bug report"
 description: Report an issue with gitAutoPublisher
-title: "🐛"
+title: "🐛 "
 labels: ["bug: pending triage"]
 body:
   - type: markdown
