@@ -113,12 +113,10 @@ schtasks /create /tn %schtaskName% /sc DAILY /st %t%:00 /tr %0 2>nul>nul
 choice /c YN /t 10 /d Y /n /m "Please confirm whether to push, yes Y, no N"
 if %errorlevel%==2 goto exit
 :: Initialization
-title %ver% initializing...
 echo Initializing...
 timeout /t 5 /nobreak 2>nul>nul
 echo Initialization complete, starting push process...
 :: Push
-title %ver% pushing...
 echo Adding all changes...
 git add .
 echo Committing all changes...
@@ -128,13 +126,11 @@ git pull 2>nul>nul
 echo Pushing all local changes to remote...
 git push 2>nul>nul
 echo Push process has ended
-title %ver% push completed!
 :: Save register config
 reg add HKCU\Software\autoPublisher /v routerIP /t REG_SZ /d %routerIP% /f 2>nul>nul
 reg add HKCU\Software\autoPublisher /v schTask /t REG_DWORD /d 1 /f 2>nul>nul
 :exit
 :: Program end
-title %ver% process has ended
 echo Thank you for using %ver%
 del %tempFile% /q 2>nul>nul
 echo Please press any key to continue...
