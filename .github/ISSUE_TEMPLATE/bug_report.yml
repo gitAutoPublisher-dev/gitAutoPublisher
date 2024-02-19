@@ -1,6 +1,6 @@
 name: "🐛 Bug report"
 description: Report an issue with gitAutoPublisher
-title: '🐛 
+title: "🐛"
 labels: ["bug: pending triage"]
 body:
   - type: markdown
@@ -25,7 +25,7 @@ body:
         请在这里提供你所使用 gitAutoPublisher 的方式。为了节省彼此交流的时间，
         麻烦在提交 issue 前多次测试该命令是能够反复复现的（非网络问题），
         如果可以，麻烦在提交 issue 前对其他的情况进行测试，并将相关信息详细描述在问题简述中。
-      validation:
+    validations:
         required: true
   - type: textarea
     id: environment-info
