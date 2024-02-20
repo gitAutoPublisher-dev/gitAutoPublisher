@@ -1,8 +1,23 @@
 @echo off
 :: Echo version
-set ver=autoPublisher v2.4.7
+set ver=autoPublisher v2.4.8
+if "%1"=="-?" (
+    echo Usage: autoPublisher.bat [-v] [-c] [-s]
+    echo -v: Show the version of gitAutoPublisher
+    echo -c: Show the contributors of gitAutoPublisher
+    echo -s: Show the sponsors of gitAutoPublisher
+    exit /b 0
+)
 if "%1"=="-v" (
-    echo %ver%
+    echo Version: %ver%
+    exit /b 0
+)
+if "%1"=="-c" (
+    echo Contributors: Nightingale0504, YUCLing
+    exit /b 0
+)
+if "%1"=="-s" (
+    echo Sponsors: None
     exit /b 0
 )
 :: Basic settings
